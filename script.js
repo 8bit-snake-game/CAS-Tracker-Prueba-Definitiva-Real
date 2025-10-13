@@ -13,6 +13,21 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+const bodyPage = document.getElementById("bodyPage");
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+auth.onAuthStateChanged(user => {
+  if (!user) {
+    window.location.href = "login.html";
+  } else {
+    bodyPage.style.display = "block";
+    // Inicializar funciones específicas de la página
+  }
+});
+
 const bodyIndex = document.getElementById("bodyIndex");
 
 firebase.initializeApp(firebaseConfig);

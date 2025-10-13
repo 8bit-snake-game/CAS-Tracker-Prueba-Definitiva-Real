@@ -1,14 +1,42 @@
-// Inicializar Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyCdtOXIjjB_kL34DhJSGuaT5OWzw2i_A2E",
-  authDomain: "cas-tracker-dcfc4.firebaseapp.com",
-  projectId: "cas-tracker-dcfc4",
-  storageBucket: "cas-tracker-dcfc4.firebasestorage.app",
-  messagingSenderId: "782100915031",
-  appId: "1:782100915031:web:cd74ba7defa78927951412",
-  measurementId: "G-67K0LVYY2H"
-};
+if (!window.firebaseApp) {
+  const firebaseConfig = {
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_AUTH_DOMAIN",
+    projectId: "TU_PROJECT_ID",
+    storageBucket: "TU_STORAGE_BUCKET",
+    messagingSenderId: "TU_SENDER_ID",
+    appId: "TU_APP_ID"
+  };
+  window.firebaseApp = firebase.initializeApp(firebaseConfig);
+  window.auth = firebase.auth();
+}
 
+// Mantener <body> oculto hasta verificar login
+const bodyIndex = document.getElementById("bodyIndex");
+if (bodyIndex) bodyIndex.style.display = "none";
+
+// Verificar usuario logueado
+window.auth.onAuthStateChanged(user => {
+  if (!user) {
+    // Redirige al login si no hay sesión
+    window.location.href = "login.html";
+  } else {
+    // Usuario logueado, mostrar página
+    if (bodyIndex) bodyIndex.style.display = "block";
+    mostrarActividades();
+    mostrarReflexiones();
+    cargarHorario();
+  }
+});
+
+// Logout (si hay botón)
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    await window.auth.signOut();
+    window.location.href = "login.html";
+  });
+}
 
 const bodyPage = document.getElementById("bodyPage");
 

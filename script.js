@@ -27,10 +27,6 @@ auth.onAuthStateChanged(user => {
 
 const bodyIndex = document.getElementById("bodyIndex");
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-
 // ✅ Verificar usuario logueado
 auth.onAuthStateChanged(user => {
   if (!user) {

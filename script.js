@@ -53,23 +53,6 @@ auth.onAuthStateChanged(user => {
   }
 });
 
-const bodyIndex = document.getElementById("bodyIndex");
-
-// ✅ Verificar usuario logueado
-auth.onAuthStateChanged(user => {
-  if (!user) {
-    // No hay usuario, redirigir al login
-    window.location.href = "login.html";
-  } else {
-    // Usuario logueado, mostrar contenido
-    bodyIndex.style.display = "block";
-
-    // Inicializar funciones solo si el usuario está logueado
-    mostrarActividades();
-    mostrarReflexiones();
-    cargarHorario();
-  }
-});
 
 // Logout
 document.getElementById("logoutBtn")?.addEventListener("click", async () => {

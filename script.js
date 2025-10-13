@@ -13,16 +13,32 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// ✅ Redirigir si no hay usuario logueado
+const bodyIndex = document.getElementById("bodyIndex");
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// ✅ Verificar usuario logueado
 auth.onAuthStateChanged(user => {
   if (!user) {
-    window.location.href = "login.html"; // Redirige al login
+    // No hay usuario, redirigir al login
+    window.location.href = "login.html";
   } else {
-    // Si hay usuario, carga la interfaz normal
+    // Usuario logueado, mostrar contenido
+    bodyIndex.style.display = "block";
+
+    // Inicializar funciones solo si el usuario está logueado
     mostrarActividades();
     mostrarReflexiones();
     cargarHorario();
   }
+});
+
+// Logout
+document.getElementById("logoutBtn")?.addEventListener("click", async () => {
+  await auth.signOut();
+  window.location.href = "login.html";
 });
 
 // Logout

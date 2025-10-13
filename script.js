@@ -13,11 +13,12 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Redirigir si no hay usuario logueado
+// ✅ Redirigir si no hay usuario logueado
 auth.onAuthStateChanged(user => {
   if (!user) {
-    window.location.href = "login.html";
+    window.location.href = "login.html"; // Redirige al login
   } else {
+    // Si hay usuario, carga la interfaz normal
     mostrarActividades();
     mostrarReflexiones();
     cargarHorario();
